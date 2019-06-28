@@ -1,53 +1,62 @@
-<?php 
-include_once ("config.php"); 
-$result = mysqli_query($mysqli, "SELECT * FROM club ORDER BY id_club DESC");
-?>
+<?php include "header.php"; ?>
+<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+           
+ <form style="margin-top:200px">  
+    <h2 align="center">SELAMAT ANDA SUDAH BERHASIL</h2></br> 
+   <!--  <?php if ($_GET) { 
+        $id = $_GET['Pesan'];
+        ?>
+    <div class="alert alert-primary" role="alert">
+        Tiket Anda Berhasil Terdaftar, <b style="color: #000">KODE PEMESANAN : <?= $id ?></b>
+    </div>
+    <?php } ?> -->
+    <table align="center" class="pure-table pure-table-bordered">
+        <thead>
+            <tr align="center">
+                <th>ID</th> 
+                <th>Nama</th>
+                <th>Klub yang bertanding</th> 
+                <th>Tanggal & Waktu</th>
+                <th>Stadion</th>
+                <th>Kelas</th>
+                <th>Total Harga</th>
+                <th>Mode Pemayaran</th>
+                <th>Liga</th>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>form pencarian piala presiden</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<div class="header">
-  <h1>football ticket league indonesia</h1>
-  <p></p>
+                <!-- <th>opsi</th> -->    
+            </tr>
+        </thead>
+</form>
+        <tbody>
+
+<?php
+    include "koneksi.php";
+    
+    $koneksi = mysqli_query($koneksi, "SELECT * FROM pemesanan order by id "); // Query untuk menampilkan semua
+    
+    $data = mysqli_fetch_array($koneksi);// Ambil semua data dari hasil eksekusi $sql
+        echo "<tr>";
+        echo "<td>".$data['id']."</td>";
+        echo "<td>".$data['nama']."</td>";
+        echo "<td>".$data['klub_b']."</td>";
+        echo "<td>".$data['tanggal']."</td>";
+        echo "<td>".$data['stadion']."</td>";
+        echo "<td>".$data['kelas']."</td>";
+        echo "<td>".$data['total']."</td>";
+        echo "<td>".$data['pembayaran']."</td>";
+        echo "<td>".$data['liga']."</td>";
+
+        //echo "<td><a href='#?id=".$data['id']."'>Ubah</a></td>";
+        //echo "<td><a href='#?id=".$data['id']."'>Hapus</a></td>";
+        echo "</tr>";
+    
+    ?>
+    </tbody>
+    </table>
+    </br>  
+<!-- <a href="halaman_costumer.php" class="pure-button pure-button-primary">HOME</a> -->
+<div hidden="true">
+<?php include "footer.php";  ?>
 </div>
-
-<div class="topnav">
-  <a href="#">Home</a>
-  <a href="tampil.php">Liga 1</a>
-  <a href="#">pembelian tiket</a>
-  <a href="#">cara pembelian</a><br>
-    <form method="post" action="pencarian.php" align="right">
-        <input type="text" name="cari">
-        <input type="submit" name="kirim" value="cari">
-    </form> 
-</div><br>
- <h2 align="center">Daftar TIM LIGA 1</h2> 
-<table border="5" align="center">
- <thead>
-     <tr>
-        <th>Nama club</th> 
-        <th>Kota club</th>
-    </tr>
- </thead>
- <tbody>
- <?php  
-while($user_data = mysqli_fetch_array($result)) {         
- echo "<tr>";
- echo "<td>".$user_data['nama_club']."</td>";
- echo "<td>".$user_data['asal_club']."</td>";  
- echo "</tr>";
- //echo "<td><a href='edit.php?id=$user_data[id]'>Edit</a> | <a href='delete.php?id=$user_data[id]'>Delete</a></td></tr>";        
-}
-?>
- </tbody>
-</table>
-
 </body>
 </html>
